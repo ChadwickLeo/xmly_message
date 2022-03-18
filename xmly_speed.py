@@ -244,6 +244,7 @@ def ans_start(cookies):
     try:
         response = requests.get(
             'https://m.ximalaya.com/speed/web-earn/topic/start', headers=headers, cookies=cookies)
+        print(response.text)
         result = json.loads(response.text)
         paperId = result["data"]["paperId"]
         dateStr = result["data"]["dateStr"]

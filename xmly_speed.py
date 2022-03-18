@@ -248,6 +248,7 @@ def ans_start(cookies):
             'https://m.ximalaya.com/speed/web-earn/topic/start', headers=headers, cookies=cookies)
         print("ans_start: ", response.text)
         result = json.loads(response.text)
+        if not (result and "data" in result and "paperId" in result["data"] and "dateStr" in result["data"] and "topics" in result["data"] and len(result["data"]["topics"])>2 and "topicId" in result["data"]["topics"][2]): return None
         paperId = result["data"]["paperId"]
         dateStr = result["data"]["dateStr"]
         lastTopicId = result["data"]["topics"][2]["topicId"]

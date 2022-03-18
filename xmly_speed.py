@@ -186,7 +186,7 @@ def ans_receive(cookies, paperId, lastTopicId, receiveType):
     try:
         response = requests.post('https://m.ximalaya.com/speed/web-earn/topic/receive',
                                  headers=headers, cookies=cookies, data=json.dumps(data))
-        print(response.text)
+        print("ans_receive: ",response.text)
     except:
         print(traceback.format_exc())
 
@@ -207,7 +207,7 @@ def ans_restore(cookies):
     try:
         response = requests.post('https://m.ximalaya.com/speed/web-earn/topic/restore',
                                  headers=headers, cookies=cookies, data=json.dumps(data))
-        print(response.text)
+        print("ans_restore: ",response.text)
     except:
         print(traceback.format_exc())
 
@@ -224,6 +224,7 @@ def ans_getTimes(cookies):
     try:
         response = requests.get(
             'https://m.ximalaya.com/speed/web-earn/topic/user', headers=headers, cookies=cookies)
+        print(response.text)
         result = json.loads(response.text)
         stamina = result["data"]["stamina"]
         remainingTimes = result["data"]["remainingTimes"]
@@ -316,7 +317,7 @@ def lottery_info(cookies):
                                  headers=headers, cookies=cookies, data=json.dumps(data))
 
         result = response.json()
-        print("chance", result)
+        print("chance: ", result)
         data = {
             "sign": rsa_encrypt(str(result["data"]["chanceId"]), pubkey_str),
         }
@@ -417,7 +418,7 @@ def checkin(cookies):
                                 headers=headers, params=params, cookies=cookies)
 
         result = json.loads(response.text)
-        print(result)
+        print("checkin:", result)
         print(f"""连续签到{result["continuousDays"]}/{result["historyDays"]}天""")
         print(result["isTickedToday"])
         if not result["isTickedToday"]:
@@ -440,7 +441,7 @@ def checkin(cookies):
 
             response = requests.post('https://m.ximalaya.com/speed/task-center/check-in/check',
                                      headers=headers, cookies=cookies, data=json.dumps(data))
-            print(response.text)
+            print("sign: ",response.text)
     except:
         print(traceback.format_exc())
 
@@ -460,6 +461,8 @@ def ad_score(cookies, businessType, taskId):
     except:
         print("网络请求异常,为避免GitHub action报错,直接退出")
         exit()
+    
+    print("ad_score: ", response.text)
     result = response.json()
     token = result["id"]
     uid = get_uid(cookies)
@@ -491,6 +494,7 @@ def bubble(cookies):
         response = requests.post('https://m.ximalaya.com/speed/web-earn/listen/bubbles',
                                  headers=headers, cookies=cookies, data=json.dumps(data))
         result = response.json()
+        print("bubble: ", result)
         if not result["data"]["effectiveBubbles"]:
             print("暂无有效气泡")
             return
@@ -541,6 +545,7 @@ def getOmnipotentCard(cookies):
 
     token = requests.get('https://m.ximalaya.com/speed/web-earn/card/token/1',
                          headers=headers, cookies=cookies,).json()["data"]["id"]
+    print("token: ", token.text)
     uid = get_uid(cookies)
     data = {
         "listenTime": mins-date_stamp,
@@ -570,6 +575,7 @@ def cardReportTime(cookies):
     try:
         response = requests.post('https://m.ximalaya.com/speed/web-earn/card/reportTime',
                                  headers=headers, cookies=cookies, data=json.dumps(data)).json()
+        print("cardReportTime: ", response.text)
         if response["data"]["upperLimit"]:
             print("今日已达上限")
     except:
@@ -625,7 +631,7 @@ def saveListenTime(cookies):
         try:
             response = requests.post('http://mobile.ximalaya.com/pizza-category/ball/saveListenTime',
                                      headers=headers, cookies=cookies, data=data)
-            print(response.text)
+            print("saveListenTime", response.text)
         except:
             print(traceback.format_exc())
 
@@ -671,6 +677,7 @@ def card_exchangeCoin(cookies, themeId, cardIdList):
     }
     token = requests.get('https://m.ximalaya.com/speed/web-earn/card/token/3',
                          headers=headers, cookies=cookies,).json()["data"]["id"]
+    print("token: ", token.text)
     uid = get_uid(cookies)
     data = {
         "cardIdList": cardIdList,
@@ -749,7 +756,7 @@ def card(cookies):
     try:
         response = requests.get(
             'https://m.ximalaya.com/speed/web-earn/card/userCardInfo', headers=headers, cookies=cookies)
-
+        print("card: ", response.text)
         data = response.json()["data"]
         #######
         # 5连抽

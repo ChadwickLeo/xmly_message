@@ -246,7 +246,7 @@ def ans_start(cookies):
     try:
         response = requests.get(
             'https://m.ximalaya.com/speed/web-earn/topic/start', headers=headers, cookies=cookies)
-        print(response.text)
+        print("ans_start: ", response.text)
         result = json.loads(response.text)
         paperId = result["data"]["paperId"]
         dateStr = result["data"]["dateStr"]
@@ -587,7 +587,9 @@ def answer(cookies):
     if ans_times["stamina"] == 0:
         print("时间未到")
     for _ in range(ans_times["stamina"]):
-        paperId, _, lastTopicId = ans_start(cookies)
+        ret = ans_start(cookies)
+        if not ret: continue
+        paperId, _, lastTopicId = ret
         ans_receive(cookies, paperId, lastTopicId, 1)
         time.sleep(1)
         ans_receive(cookies, paperId, lastTopicId, 2)
@@ -597,7 +599,9 @@ def answer(cookies):
         print("[看视频恢复体力]")
         ans_restore(cookies)
         for _ in range(5):
-            paperId, _, lastTopicId = ans_start(cookies)
+            ret = ans_start(cookies)
+            if not ret: continue
+            paperId, _, lastTopicId = ret 
             ans_receive(cookies, paperId, lastTopicId, 1)
             time.sleep(1)
             ans_receive(cookies, paperId, lastTopicId, 2)

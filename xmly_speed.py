@@ -415,7 +415,7 @@ def checkin(cookies):
                                 headers=headers, params=params, cookies=cookies)
 
         result = json.loads(response.text)
-        # print(result)
+        print(result)
         print(f"""连续签到{result["continuousDays"]}/{result["historyDays"]}天""")
         print(result["isTickedToday"])
         if not result["isTickedToday"]:

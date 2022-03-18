@@ -71,7 +71,7 @@ def str_to_dict(str_cookie):
             if not j[0]:
                 continue
             dict_cookie[j[0].strip()] = j[1].strip()
-        # print(dict_cookie)
+        print(dict_cookie)
     except:
         print("cookie格式填写错误")
     return dict_cookie
@@ -130,7 +130,7 @@ def read(cookies, uid):
         except:
             print(traceback.format_exc())
         result = response.json()
-        # print(result)
+        print(result)
         if result["status"] == -2:
             print("无法阅读,尝试从安卓端手动开启")
             return
@@ -836,7 +836,7 @@ def account(cookies):
     累计获得:{result["historyTotal"]/10000}
     """)
         account_info = '%s: 获得金币 %.4f(%.4f)' % (cookies['device_model'], float(result["total"]/10000), float(result["todayTotal"]/10000))
-        # print(account_info)
+        print(account_info)
         return account_info
     except:
         print(traceback.format_exc())

@@ -110,6 +110,7 @@ def read(cookies, uid):
         response = requests.get(
             'https://51gzdhh.xyz/api/new/newConfig', headers=headers, params=params)
         result = response.json()
+        print(result)
         pid = str(result["pid"])
         headers = {
             'Host': '51gzdhh.xyz',

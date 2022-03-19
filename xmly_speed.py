@@ -442,7 +442,7 @@ def checkin(cookies):
 
             response = requests.post('https://m.ximalaya.com/speed/task-center/check-in/check',
                                      headers=headers, cookies=cookies, data=json.dumps(data))
-            print("sign: ",response.text)
+            print("签到结果: ",response.text)
     except:
         print(traceback.format_exc())
 

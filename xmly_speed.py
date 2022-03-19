@@ -248,7 +248,7 @@ def ans_start(cookies):
             'https://m.ximalaya.com/speed/web-earn/topic/start', headers=headers, cookies=cookies)
         result = json.loads(response.text)
         print("ans_start: ", result)
-        if not (result and "data" in result and "paperId" in result["data"] and "dateStr" in result["data"] and "topics" in result["data"] and type(result["data"]["topics"]) is list and len(result["data"]["topics"])>2 and "topicId" in result["data"]["topics"][2]): return None
+        if not (result and ("data" in result) and result["data"] and ("paperId" in result["data"]) and ("dateStr" in result["data"]) and ("topics" in result["data"]) and (type(result["data"]["topics"]) is list) and (len(result["data"]["topics"])>2) and ("topicId" in result["data"]["topics"][2]) ): return None
         paperId = result["data"]["paperId"]
         dateStr = result["data"]["dateStr"]
         lastTopicId = result["data"]["topics"][2]["topicId"]
@@ -577,8 +577,10 @@ def cardReportTime(cookies):
         response = requests.post('https://m.ximalaya.com/speed/web-earn/card/reportTime',
                                  headers=headers, cookies=cookies, data=json.dumps(data)).json()
         print("cardReportTime: ", response)
-        if response["data"]["upperLimit"]:
+        if response and ("data" in response) and response["data"] and ("upperLimit" in response["data"]) and response["data"]["upperLimit"]:
             print("今日已达上限")
+        else:
+            print("Invalid response")
     except:
         print(traceback.format_exc())
 

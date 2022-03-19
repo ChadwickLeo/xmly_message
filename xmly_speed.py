@@ -546,7 +546,7 @@ def getOmnipotentCard(cookies):
 
     token = requests.get('https://m.ximalaya.com/speed/web-earn/card/token/1',
                          headers=headers, cookies=cookies,).json()["data"]["id"]
-    print("token: ", token.text)
+    print("token: ", token)
     uid = get_uid(cookies)
     data = {
         "listenTime": mins-date_stamp,
@@ -576,10 +576,9 @@ def cardReportTime(cookies):
     try:
         response = requests.post('https://m.ximalaya.com/speed/web-earn/card/reportTime',
                                  headers=headers, cookies=cookies, data=json.dumps(data)).json()
-        if response:
-            print("cardReportTime: ", response.text)
-            if response["data"]["upperLimit"]:
-                print("今日已达上限")
+        print("cardReportTime: ", response)
+        if response["data"]["upperLimit"]:
+            print("今日已达上限")
     except:
         print(traceback.format_exc())
 
@@ -683,7 +682,7 @@ def card_exchangeCoin(cookies, themeId, cardIdList):
     }
     token = requests.get('https://m.ximalaya.com/speed/web-earn/card/token/3',
                          headers=headers, cookies=cookies,).json()["data"]["id"]
-    print("token: ", token.text)
+    print("token: ", token)
     uid = get_uid(cookies)
     data = {
         "cardIdList": cardIdList,
